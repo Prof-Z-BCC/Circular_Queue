@@ -19,12 +19,12 @@ public :
     }
 
     bool isEmpty() {
-        if (head == tail) return true;
+        if (used == 0) return true;
         return false;
     }
 
     bool isFull() {
-        if ((tail + 1) % SIZE == head) return true;
+        if (used == SIZE) return true;
         return false;
     }
 
@@ -34,9 +34,8 @@ public :
             return false;
         }
 
-        cout << "Head: " << head << " Tail: " << tail << endl;
-
         arr[tail] = val;
+        tail = (tail + 1) % SIZE;
         used++;
         return true;
     }
@@ -61,11 +60,12 @@ public :
             return;
         }
 
-        for (int index = head; index < tail; index = ((index + 1) % SIZE)) {
-            cout << arr[index] << " ";
+        for (int index = 0, loc = head; index < used; index++) {
+            cout << arr[loc] << " ";
+            loc = ((loc + 1) % SIZE);
 
         }
-     //   cout << arr[tail] << endl;
+        cout << endl;
     }
 
 };
@@ -81,15 +81,12 @@ int main() {
     q.print();
     q.enqueue(6);
     q.print();
-    cout << "Used: " << q.peekSize() << endl;
     q.dequeue();
     q.print();
     q.dequeue();
     q.print();
-    cout << "Used: " << q.peekSize() << endl;
     q.enqueue(1);
-    cout << "Used: " << q.peekSize() << endl;
     q.print();
 
-
+    return 0;
 }
